@@ -149,18 +149,18 @@ export default function Home() {
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-md border border-teal-200 bg-white px-3 py-2 text-sm font-semibold text-auspex-teal shadow-sm">
               <ShieldAlert className="h-4 w-4" aria-hidden="true" />
-              Project Auspex
+              Auspex
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold text-auspex-ink sm:text-5xl">
-              Explainable Domain Intelligence
+              Domain Risk Intelligence
             </h1>
             <p className="mt-3 max-w-2xl text-base text-slate-600 sm:text-lg">
-              Analyze domain names using lexical signals and character-level ML patterns.
+              Analyze domains. Assess risk. Understand why.
             </p>
           </div>
           <div className="flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm">
             <Activity className="h-4 w-4 text-auspex-teal" aria-hidden="true" />
-            MVP triage model
+            Domain Risk Engine
           </div>
         </header>
 
@@ -216,10 +216,13 @@ export default function Home() {
           </div>
 
           <aside className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-panel sm:p-5">
-            <p className="font-semibold text-auspex-ink">Model note</p>
+            <p className="font-semibold text-auspex-ink">About</p>
             <p className="mt-2 leading-6">
-              Auspex is an MVP triage tool. Results are based on lexical domain features and
-              should be reviewed before operational use.
+              Auspex evaluates domains using lexical features extracted directly from the domain
+              name and returns explainable risk assessments.
+            </p>
+            <p className="mt-3 text-xs leading-5 text-slate-500">
+              Results are model-derived and should be reviewed before operational use.
             </p>
           </aside>
         </section>
