@@ -1,1 +1,21 @@
 data/raw/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual env
+.venv/
+
+# Data
+data/raw/
+data/processed/
+
+# Models
+models/*.pkl
+
+# VS Code
+.vscode/
