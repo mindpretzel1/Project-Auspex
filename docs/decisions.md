@@ -40,3 +40,42 @@ Reason:
 - Directly matches product input
 - Avoids dependence on opaque engineered features
 - Easier to explain and reproduce
+
+## Dataset Selection
+
+Decision:
+Use raw CIC-Bell-DNS2021 domain lists.
+
+Reason:
+Processed DNS feature datasets contained parsing issues and opaque engineered features.
+
+Raw domains better match the intended product input.
+
+---
+
+## Unified Dataset
+
+Created:
+auspex_domains_v1.csv
+
+Schema:
+
+domain,label
+
+Labels:
+- benign
+- phishing
+- malware
+- spam
+
+---
+
+## Label Conflicts
+
+467 domains appeared under multiple labels.
+
+Decision:
+Remove conflicting domains from training data.
+
+Reason:
+Reduce label ambiguity and training noise.
