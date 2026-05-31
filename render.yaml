@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: project-auspex-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.3
+      - key: AUSPEX_MODEL_PATH
+        value: models/auspex_model.pkl
+      - key: AUSPEX_CORS_ORIGINS
+        sync: false

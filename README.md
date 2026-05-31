@@ -58,7 +58,7 @@ curl -X POST http://localhost:8000/analyze \
 Optional environment variables:
 
 - `AUSPEX_MODEL_PATH`: path to the saved model artifact, defaults to `models/auspex_model.pkl`
-- `AUSPEX_CORS_ORIGINS`: comma-separated allowed frontend origins, defaults to `*`
+- `AUSPEX_CORS_ORIGINS`: comma-separated allowed frontend origins. Use `*` locally only; set the exact Vercel URL in production.
 
 ## Frontend
 
@@ -97,15 +97,107 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ## Deployment
 
-Backend options include Render, Railway, Fly.io, or another Python web host.
+This repository is configured for:
 
-Suggested backend start command:
+- Backend: Render web service using `render.yaml`
+- Frontend: Vercel Next.js project using `frontend/vercel.json`
+
+Before deploying, make sure these files are committed:
+
+- `models/auspex_model.pkl`
+- `models/auspex_model_metrics.json`
+- `requirements.txt`
+- `.python-version`
+- `render.yaml`
+- `frontend/package.json`
+- `frontend/package-lock.json`
+- `frontend/vercel.json`
+
+The model artifact is required on Render. The `.gitignore` file intentionally allows `models/auspex_model.pkl` to be tracked.
+
+### Deploy Backend To Render
+
+1. Push the repo to GitHub.
+2. In Render, create a new Blueprint or Web Service from the GitHub repo.
+3. Use the included `render.yaml`, or configure the service manually:
+
+```text
+Runtime: Python
+Build Command: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+Start Command: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+Health Check Path: /health
+```
+
+4. Set environment variables:
+
+```text
+PYTHON_VERSION=3.14.3
+AUSPEX_MODEL_PATH=models/auspex_model.pkl
+AUSPEX_CORS_ORIGINS=https://<frontend>.vercel.app
+```
+
+5. Deploy and verify:
+
+```bash
+curl https://<backend>.onrender.com/health
+curl -X POST https://<backend>.onrender.com/analyze \
+  -H "Content-Type: application/json" \
+  -d "{\"domain\":\"google.com\"}"
+```
+
+Expected health response:
+
+```json
+{
+  "status": "ok",
+  "model_loaded": true
+}
+```
+
+### Deploy Frontend To Vercel
+
+1. In Vercel, import the GitHub repo.
+2. Set the project root directory to:
+
+```text
+frontend
+```
+
+3. Confirm settings:
+
+```text
+Framework Preset: Next.js
+Install Command: npm install
+Build Command: npm run build
+Output Directory: .next
+```
+
+4. Set the Production environment variable:
+
+```text
+NEXT_PUBLIC_API_URL=https://<backend>.onrender.com
+```
+
+5. Deploy the Vercel project.
+
+If you deploy the frontend first, update Render's `AUSPEX_CORS_ORIGINS` after the Vercel URL is known and redeploy the backend. If you deploy the backend first, update Vercel's `NEXT_PUBLIC_API_URL` after the Render URL is known and redeploy the frontend.
+
+### Production Verification Checklist
+
+- `https://<backend>.onrender.com/health` returns `{"status":"ok","model_loaded":true}`.
+- `POST https://<backend>.onrender.com/analyze` returns a prediction payload.
+- Vercel has `NEXT_PUBLIC_API_URL=https://<backend>.onrender.com`.
+- Render has `AUSPEX_CORS_ORIGINS=https://<frontend>.vercel.app`.
+- Opening `https://<frontend>.vercel.app` on a laptop loads the app.
+- Opening `https://<frontend>.vercel.app` on a phone loads the app.
+- Submitting `google.com` returns a low-risk result.
+- Submitting `paypal-secure-login-update.com` returns a risk score, class confidence bars, and explanation.
+
+For local backend testing, the equivalent start command remains:
 
 ```bash
 uvicorn src.api.main:app --host 0.0.0.0 --port 8000
 ```
-
-Frontend can be deployed on Vercel. Set `NEXT_PUBLIC_API_URL` to the deployed backend URL.
 
 ## Limitations
 

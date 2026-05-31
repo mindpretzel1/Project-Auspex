@@ -16,6 +16,7 @@ data/processed/
 
 # Models
 models/*.pkl
+!models/auspex_model.pkl
 
 # VS Code
 .vscode/
