@@ -1,0 +1,1 @@
+"""Project Auspex application package."""

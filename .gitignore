@@ -20,4 +20,11 @@ models/*.pkl
 # VS Code
 .vscode/
 
+# Frontend
+node_modules/
+.next/
+out/
+dist/
+frontend/.env.local
+
 test.ipynb
