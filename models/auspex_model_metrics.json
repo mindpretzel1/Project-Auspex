@@ -1,0 +1,37 @@
+{
+    "model_name": "Combined Character N-Grams + Lexical Features + SGD",
+    "accuracy": 0.966194584886876,
+    "macro_f1": 0.4538081624418597,
+    "weighted_f1": 0.9621005235844521,
+    "malicious_recall": 0.3824503311258278,
+    "malicious_precision": 0.6321550741163056,
+    "malicious_f1": 0.4765752600361042,
+    "threats_predicted_benign": 4476,
+    "total_threats": 7248,
+    "confusion_matrix": [
+        [
+            196047,
+            560,
+            279,
+            774
+        ],
+        [
+            3518,
+            1164,
+            550,
+            109
+        ],
+        [
+            829,
+            163,
+            735,
+            14
+        ],
+        [
+            129,
+            2,
+            0,
+            35
+        ]
+    ]
+}
