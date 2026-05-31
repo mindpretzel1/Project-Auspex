@@ -21,7 +21,7 @@ Raw CIC-Bell-DNS2021 Data
 
 Current Status:
 ✓ Dataset construction complete
-□ Feature engineering
+✓ Feature engineering
 □ Model training
 □ Risk scoring API
 □ Frontend

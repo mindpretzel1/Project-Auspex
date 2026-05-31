@@ -79,3 +79,64 @@ Remove conflicting domains from training data.
 
 Reason:
 Reduce label ambiguity and training noise.
+
+# Decisions Log
+
+## Dataset Selection
+
+Selected the CIC Bell DNS 2021 domain dataset as the primary training source.
+
+Classes:
+- benign
+- phishing
+- malware
+- spam
+
+Reason:
+- Large dataset (>1M domains)
+- Clearly labeled classes
+- Suitable for offline feature extraction
+- No live DNS lookups required for MVP
+
+---
+
+## Dataset Construction
+
+Created:
+
+data/processed/auspex_domains_v1.csv
+
+Schema:
+
+domain,label
+
+Actions:
+- Combined all four class datasets
+- Standardized labels
+- Removed duplicate domains with conflicting labels
+
+Result:
+~1.02 million labeled domains
+
+---
+
+## Feature Engineering (v1)
+
+Created:
+
+data/processed/auspex_features_v1.csv
+
+Features:
+- length
+- digit_count
+- digit_ratio
+- hyphen_count
+- dot_count
+- tld
+- starts_with_digit
+- contains_www
+- entropy
+
+Observations:
+- Malware and phishing domains are significantly longer than benign domains.
+- Length appears to be a useful predictive feature.
