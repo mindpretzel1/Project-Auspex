@@ -23,13 +23,7 @@ The model was trained on over one million labeled domains derived from the CIC B
 Frontend:
 
 ```text
-https://your-vercel-url.vercel.app
-```
-
-Backend API:
-
-```text
-https://your-render-url.onrender.com
+https://project-auspex.vercel.app/
 ```
 
 ## How To Use
