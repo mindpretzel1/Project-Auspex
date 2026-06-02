@@ -26,6 +26,8 @@ Frontend:
 https://project-auspex.vercel.app/
 ```
 
+Note: First request may take a moment due to hosting service startup.
+
 ## How To Use
 
 1. Open the web application.
